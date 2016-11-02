@@ -34,6 +34,8 @@ A recent technique that is in the PCG news is wave function collapse. It allows 
 You can play with a web implementation of WFC here.
 [Spelunky]() /level design document?/
 _Spelunky_ is a successful video game that uses procedural content generation to create unique levels every time someone plays it.
+[Physical Character Creator](https://www.youtube.com/watch?v=3YDgu0A9zp4)
+The physical character creator is an example of procedural combination using physical materials.
 [The Annals of the Parrigues]()
 _The Annals of the Parrigues_ is a short story written using procedural content generation to create a set of related imaginary places and written descriptions of each place.
 [Reas Process]()
@@ -75,6 +77,26 @@ In a group of at least 3 people:
 1) Everyone should place their pen on the paper at the same time.
 2) Copy the drawing of the person on your left.
 
+### Conditional Design in Javascript
+
+I hope that was fun for everyone. Now, let's see how we can make the computer follow similar rules to create images.
+
+- The first two processes are implemented in javascript.
+- Re-implement one "from scratch"
+- variables
+	- Variables represent the data we deal with in code. The data the represent can be numbers, text, images, sound, and more.
+- functions
+	- Functions do things with our data. They might perform some math, arrange things on screen, or generate new data.
+- objects
+	- Objects are containers for data in JavaScript
+	- They let us group together related pieces of data under one name
+	- Multiple ways to get data from an object:
+		- `object.attribute`
+		- `object["attribute"]`
+
+#### Learning Materials
+[Référence JavaScript](https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference)
+
 ## Saturday Welcome
 
 ### Welcome back.
@@ -90,14 +112,8 @@ Hello.
 ### Present projects at end of day.
 1h
 
-## Project notes, things to do…
 
-Conditional Drawing workshop.
-Implement sample rulesets in javascript (tarbell cities, beach sitting—tree growth, fungal growth, beach sitting with umbrella and towel, "book nodes", tree branching).
 
-[Conditional Design](https://www.conditionaldesign.org/)
-[Physical Character Creator](https://www.youtube.com/watch?v=3YDgu0A9zp4)
 https://github.com/kchapelier/wavefunctioncollapse
 
-[Référence JavaScript](https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference)
 
