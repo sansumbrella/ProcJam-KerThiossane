@@ -96,6 +96,7 @@ I hope that was fun for everyone. Now, let's see how we can make the computer fo
 
 #### Learning Materials
 [Référence JavaScript](https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference)
+[Tutoriel canvas](https://developer.mozilla.org/fr/docs/Tutoriel_canvas)
 
 ## Saturday Welcome
 
