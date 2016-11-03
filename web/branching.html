@@ -1,0 +1,86 @@
+<html>
+<head>
+    <meta charset="utf-8"></meta>
+    <title>Kër Thiossane Sample Code: Branching</title>
+    <style>
+        canvas {
+            width: 640px;
+            height: 480px;
+            background: #FF0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Hello</h1>
+    <canvas id="canvas" width=640 height=480>
+        Fallback content.
+    </canvas>
+</body>
+<script type="text/javascript">
+    var canvas = document.getElementById("canvas");
+    var ctx = canvas.getContext("2d");
+
+    function createBranchShape(length, width) {
+        var radius = width / 2;
+        var p = new Path2D();
+        p.arc(0, 0, radius, 0, 2 * Math.PI);
+        p.arc(length, 0, radius, 0, 2 * Math.PI);
+        p.rect(0, -radius, length, width);
+        return p;
+    }
+
+    function random(low, high) {
+        var range = high - low;
+        return low + Math.random() * range;
+    }
+
+    function drawTree() {
+        var branchLength = 100;
+        var branchShape = createBranchShape(branchLength, 10);
+        
+        function branch(size) {
+            ctx.save();
+            ctx.rotate(random(-Math.PI * 0.2, Math.PI * 0.2));
+            ctx.save();
+            ctx.scale(size, size);
+            ctx.fill(branchShape);
+            ctx.restore();
+            ctx.translate(size * branchLength, 0);
+
+            if (size > 0.5) {
+                var numBranches = Math.floor(random(1, 5));
+                for (var i = 0; i < numBranches; i += 1) {
+                    branch(size * random(0.8, 0.92));
+                }
+            }
+            ctx.restore();
+        }
+
+        ctx.save();
+        ctx.rotate(-Math.PI * 0.5);
+        branch(1.0);
+        ctx.restore();
+    }
+
+    
+    var tree = {
+        size: 1.0,
+        angle: 0.0,
+        branches: []
+    };
+
+    ctx.save();
+    ctx.translate(canvas.width / 2, canvas.height);
+    drawTree();
+    ctx.restore();
+
+    function update() {
+        if (running) {
+            window.requestAnimationFrame(update);
+        }
+    }
+
+    var running = false;
+    update();
+</script>
+</html>
