@@ -97,7 +97,7 @@
             var t = 0.5 + cosine * weight;
             branch.angle = mix(branch.low, branch.high, t);
             for (var child of branch.branches) {
-                recur(child, weight + 0.021);
+                recur(child, weight + 0.051);
             }
         }
 
