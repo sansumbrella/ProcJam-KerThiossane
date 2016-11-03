@@ -18,7 +18,7 @@
         var p = new Path2D();
         p.arc(0, 0, radius, 0, 2 * Math.PI);
         p.arc(length, 0, radius, 0, 2 * Math.PI);
-        p.rect(0, -radius, length, width);
+//         p.rect(0, -radius, length, width);
         return p;
     }
 
@@ -66,18 +66,18 @@
         tree.high = tree.angle;
 
         function grow(parent) {
-            if (parent.size > size * 0.5) {
+            if (parent.size > size * 0.44) {
                 var numBranches = Math.floor(random(2, 5));
                 for (var i = 0; i < numBranches; i += 1) {
                     var child = {
-                        size: parent.size * random(0.8, 0.92),
+                        size: parent.size * random(0.7, 0.95),
                         x: parent.size,
                         y: 0,
                         angle: random(-Math.PI * 0.2, Math.PI * 0.2),
                         branches: []
                     };
-                    child.low = child.angle - random(0.1, 0.2);
-                    child.high = child.angle + random(0.1, 0.2);
+                    child.low = child.angle - 0.1; //random(0.15, 0.22);
+                    child.high = child.angle + 0.1; //random(0.15, 0.22);
                     parent.branches.push(child);
                 }
             }
@@ -91,12 +91,13 @@
     }
 
     function sway(tree) {
-        var time = new Date().getTime() * 0.001;
-        var cosine = (Math.cos(time) + 1.0) / 2.0;
+        var time = new Date().getTime() * Math.PI * 2.0 / (1000.0 * 8.0);
+        var cosine = Math.cos(time) / 2.0;
         function recur(branch, weight) {
-            branch.angle = mix(branch.low, branch.high, cosine * weight);
+            var t = 0.5 + cosine * weight;
+            branch.angle = mix(branch.low, branch.high, t);
             for (var child of branch.branches) {
-                recur(child, weight + 0.02);
+                recur(child, weight + 0.021);
             }
         }
 
