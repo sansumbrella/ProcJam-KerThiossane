@@ -1,0 +1,97 @@
+<html>
+<head>
+    <meta charset="utf-8"></meta>
+    <title>Kër Thiossane Sample Code: Branching Graph</title>
+</head>
+<body>
+    <h1>Hello</h1>
+    <canvas id="canvas" width=640 height=480>
+        Fallback content.
+    </canvas>
+</body>
+<script type="text/javascript">
+    var canvas = document.getElementById("canvas");
+    var ctx = canvas.getContext("2d");
+
+    function createBranchShape(length, width) {
+        var radius = width / 2;
+        var p = new Path2D();
+        p.arc(0, 0, radius, 0, 2 * Math.PI);
+        p.arc(length, 0, radius, 0, 2 * Math.PI);
+        p.rect(0, -radius, length, width);
+        return p;
+    }
+
+    function random(low, high) {
+        var range = high - low;
+        return low + Math.random() * range;
+    }
+
+    function drawTree(tree) {
+        console.log(tree);
+        var branchShape = createBranchShape(1.0, 0.1);
+
+        function draw(branch) {
+            ctx.save();   
+            ctx.translate(branch.x, branch.y);
+            ctx.rotate(branch.angle);
+            ctx.save();
+            ctx.scale(branch.size, branch.size);
+            ctx.fill(branchShape);
+            ctx.restore();
+
+            for (var child of branch.branches) {
+                draw(child);
+            }
+
+            ctx.restore();
+        }
+        
+        draw(tree);
+    }
+
+    function makeTree(size) {
+        var tree = {
+            x: canvas.width / 2,
+            y: canvas.height,
+            size: size,
+            angle: -Math.PI * 0.5,
+            branches: []
+        };
+
+        function grow(parent) {
+            if (parent.size > size * 0.5) {
+                var numBranches = Math.floor(random(1, 5));
+                for (var i = 0; i < numBranches; i += 1) {
+                    var child = {
+                        size: parent.size * random(0.8, 0.92),
+                        x: parent.size,
+                        y: 0,
+                        angle: random(-Math.PI * 0.2, Math.PI * 0.2),
+                        branches: []
+                    };
+                    parent.branches.push(child);
+                }
+            }
+            for (var branch of parent.branches) {
+                grow(branch);
+            }
+        }
+
+        grow(tree);
+        return tree;
+    }
+
+    var tree = makeTree(60.0);
+    drawTree(tree);
+
+    function update() {
+        if (running) {
+            window.requestAnimationFrame(update);
+        }
+    }
+
+    var running = false;
+    update();
+</script>
+</html>
