@@ -1,0 +1,99 @@
+<html>
+<head>
+    <meta charset="utf-8"></meta>
+    <title>Kër Thiossane Sample Code: Expanding</title>
+</head>
+<body>
+    <h1>Expanding</h1>
+    <canvas id="canvas" width=640 height=480>
+        Fallback content.
+    </canvas>
+</body>
+<script type="text/javascript">
+    var canvas = document.getElementById("canvas");
+    var ctx = canvas.getContext("2d");
+
+    function random(low, high) {
+        var range = high - low;
+        return low + Math.random() * range;
+    }
+
+    function createMarker(size, sides, angleOffset) {
+        var radius = size / 2;
+        if (sides < 2) {
+            sides = 2;
+        }
+        var p = new Path2D();
+        for (var i = 0; i < sides + 1; i += 1) {
+            var angle = 2 * Math.PI * (i / sides) - angleOffset;
+            var x = Math.cos(angle) * radius;
+            var y = Math.sin(angle) * radius;
+            p.lineTo(x, y);
+        }
+        return p;
+    }
+
+    function createPlayer(marker) {
+        return {
+           marker: marker,
+           x: random(canvas.width * 0.4, canvas.width * 0.6),
+           y: random(canvas.height * 0.4, canvas.height * 0.6),
+           max_distance: random(10, 100)
+        };
+    }
+
+    function establishMaxDistance(players) {
+        players.forEach(function (player, index) {
+             var neighbor = players[(index + 1) % players.length];
+             var dx = neighbor.x - player.x;
+             var dy = neighbor.y - player.y;
+             var d = Math.sqrt(dx * dx + dy * dy);
+             player.max_distance = d / 2;
+        });
+    }
+
+    function move(players) {
+        for (var player of players) {
+            var distance = random(player.max_distance * 0.2, player.max_distance);
+            var angle = random(0, Math.PI * 2);
+            var ox = Math.cos(angle) * distance;
+            var oy = Math.sin(angle) * distance;
+            player.x = player.x + ox;
+            player.y = player.y + oy;
+        }
+    }
+
+    function drawCurrent(players) {
+        for (var player of players) {
+            ctx.save();
+            ctx.translate(player.x, player.y);
+            ctx.stroke(player.marker);
+            ctx.restore();
+        }
+    }
+
+    var players = [];
+    for (var i = 0; i < 4; i += 1) {
+        players.push(createPlayer(createMarker(12, i + 2, Math.PI * 0.5)));
+    }
+    establishMaxDistance(players);
+    
+
+
+    function iterate(count) {
+        for (var i = 0; i < count; i += 1) {
+            drawCurrent(players);
+            move(players);
+        }
+    }
+
+    function update() {
+        if (running) {
+            window.requestAnimationFrame(update);
+        }
+    }
+
+    var running = false;
+    update();
+</script>
+</html>
