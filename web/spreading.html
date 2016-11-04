@@ -2,10 +2,18 @@
 <head>
     <meta charset="utf-8"></meta>
     <title>Kër Thiossane Sample Code: Expanding</title>
+    <style>
+        canvas { 
+            width: 1280px;
+            margin: 0 auto;
+            background: #CCC;
+            display: block;
+        }
+    </style>
 </head>
 <body>
     <h1>Expanding</h1>
-    <canvas id="canvas" width=640 height=480>
+    <canvas id="canvas" width=1280 height=720>
         Fallback content.
     </canvas>
 </body>
@@ -16,6 +24,10 @@
     function random(low, high) {
         var range = high - low;
         return low + Math.random() * range;
+    }
+
+    function clamp(value, low, high) {
+        return Math.min(Math.max(value, low), high);
     }
 
     function createMarker(size, sides, angleOffset) {
@@ -58,8 +70,10 @@
             var angle = random(0, Math.PI * 2);
             var ox = Math.cos(angle) * distance;
             var oy = Math.sin(angle) * distance;
-            player.x = player.x + ox;
-            player.y = player.y + oy;
+            var nx = player.x + ox;
+            var ny = player.y + oy;
+            player.x = nx;
+            player.y = ny;
         }
     }
 
@@ -77,8 +91,6 @@
         players.push(createPlayer(createMarker(12, i + 2, Math.PI * 0.5)));
     }
     establishMaxDistance(players);
-    
-
 
     function iterate(count) {
         for (var i = 0; i < count; i += 1) {
@@ -88,12 +100,13 @@
     }
 
     function update() {
+        iterate(1);
         if (running) {
             window.requestAnimationFrame(update);
         }
     }
 
-    var running = false;
+    var running = true;
     update();
 </script>
 </html>
