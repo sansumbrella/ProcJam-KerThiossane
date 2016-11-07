@@ -1,0 +1,25 @@
+<html>
+<head>
+    <meta charset="utf-8"></meta>
+    <title>Kër Thiossane Sample Code</title>
+</head>
+<body>
+    <h1>Perfect Circle</h1>
+    <canvas id="canvas" width=640 height=480>
+        Fallback content.
+    </canvas>
+</body>
+<script type="text/javascript">
+    var canvas = document.getElementById("canvas");
+    var ctx = canvas.getContext("2d");
+
+    var colors = ["#F00", "#0F0", "#00F", "#F0F"];
+    var circle = new Path2D();
+    circle.arc(0, 0, 1, 0, Math.PI * 2);
+
+    ctx.fillStyle = colors[0];
+    ctx.translate(canvas.width / 2, canvas.height / 2);
+    ctx.scale(100, 100);
+    ctx.fill(circle);
+</script>
+</html>
