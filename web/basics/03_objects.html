@@ -1,0 +1,43 @@
+<html>
+<head>
+    <meta charset="utf-8"></meta>
+    <title>Kër Thiossane Sample Code</title>
+</head>
+<body>
+    <h1>Javascript Values</h1>
+    <p>Cette example utilise le "developer console." Pour en savoir plus, voir <a href="https://developers.google.com/web/tools/chrome-devtools/console/">ici pour Chrome (Anglais)</a> ou <a href="https://developer.mozilla.org/fr/docs/Outils/Console_Web">ici pour Firefox (Francais)</a>.</p>
+</body>
+<script type="text/javascript">
+    // Objects are the essential building blocks in javascript. They are a collection of named properties.
+    // Let’s look at how we create objects and give them properties.
+    // Create an object with no properties.
+    var object = {};
+
+    // An Object’s properties can be of any type.
+    // Let’s add some to our empty object.
+
+    // Numbers
+    object.x = 10;
+    object.y = 20.5;
+
+    // Text (called Strings in programming)
+    object.name = "First Object";
+
+    // We can also create objects with some initial properties.
+    var otherObject = {
+        x: 5,
+        y: 5,
+        name: "Friendly Object"
+    };
+
+    // Properties can be other objects, too
+    object.friend = otherObject;
+
+    console.log(object);
+
+    // When an object's properties are all named with numbers, it is called an array.
+    var array = [];
+    array[0] = "Hi";
+    array[1] = "bye";
+</script>
+</html>

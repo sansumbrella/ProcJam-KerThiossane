@@ -57,21 +57,32 @@ So, let's make some drawings by following processes inspired by the conditional 
 
 We will follow three different rule sets. Once you have the rules, feel free to follow them as many times as you like. We will spend about 15 minutes on each process.
 
-#### Process I: Multiply (15 minutes)
+[Conditional Design Workbook](https://workbook.conditionaldesign.org/)
+
+#### I: Perfect Circle
+Setup:
+Each player has a different colored marker.
+Take 30-second turns (use a timer).
+Draw a filled-in circle in the center of the paper.
+Repeat:
+Improve the circle's round shape by enlarging its borders.
+Stop when the circle is perfect.
+
+#### II: Multiply (15 minutes)
 1) Draw a line
 2) From the end of the line, draw two more lines
 3) Repeat step 2 with each line you draw
 
-#### Process II: Forest growth (15 minutes)
+#### Process III: Forest growth (15 minutes)
 In a group of at least 2 people:
 Setup:
 1) Each person makes a mark on the paper
 2) The distance from your starting mark to the next person's starting mark is your maximum distance.
 Take turns placing new marks on the paper:
-- Each new mark of yours can be no farther than your maximum distance from your previous mark.
+- Each new mark of yours can be no farther from your previous mark than your maximum distance.
 - Stop when you feel like it, or when your next mark could be placed off the page.
 
-#### Process III: Follow (15 minutes)
+#### Process IV: Follow (15 minutes)
 This last exercise came out of a past conditional design workshop.
 In a group of at least 3 people:
 1) Everyone should place their pen on the paper at the same time.
