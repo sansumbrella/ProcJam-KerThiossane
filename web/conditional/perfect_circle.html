@@ -10,16 +10,70 @@
     </canvas>
 </body>
 <script type="text/javascript">
+    // blend between two numbers
+    function mix(a, b, t) {
+        return a + (b - a) * t;
+    }
+    // return a random number between low and high
+    function random(low, high) {
+        return mix(low, high, Math.random());
+    }
+
+    // find a point on the edge of the circle
+    function pointOnCircle(circle, angle) {
+        return {
+                x: circle.x + circle.radius * Math.cos(angle),
+                y: circle.y + circle.radius * Math.sin(angle)
+            };
+    }
+
+    // create a new circle whose edge touches the given circle
+    function tangentCircle(circle, angle, size) {
+        var edge = pointOnCircle(circle, angle);
+        return {
+            x: edge.x - Math.cos(angle) * size,
+            y: edge.y - Math.sin(angle) * size,
+            radius: size
+        }
+    }
+
+    // draw a circle on canvas
+    function drawCircle(circle) {
+        ctx.save();
+        ctx.translate(circle.x, circle.y);
+        ctx.scale(circle.radius, circle.radius);
+        ctx.fill(circlePath);
+        ctx.restore();
+    }
+
+    // our initial circle
+    var circle = {
+        x: 0,
+        y: 0,
+        radius: 40
+    };
+
     var canvas = document.getElementById("canvas");
     var ctx = canvas.getContext("2d");
+    // setting the globalCompositeOperation allows us to draw "behind" existing shapes, among other things.
+    ctx.globalCompositeOperation = "destination-over";
 
+    var circlePath = new Path2D();
+    circlePath.arc(0, 0, 1.0, 0, Math.PI * 2);
     var colors = ["#F00", "#0F0", "#00F", "#F0F"];
-    var circle = new Path2D();
-    circle.arc(0, 0, 1, 0, Math.PI * 2);
 
-    ctx.fillStyle = colors[0];
+    var steps = 20;
+    var angle = 0;
+    // start from the center of the canvas
     ctx.translate(canvas.width / 2, canvas.height / 2);
-    ctx.scale(100, 100);
-    ctx.fill(circle);
+    for (var i = 0; i < steps; i += 1) {
+        var color = colors[i % colors.length];
+        ctx.fillStyle = color;
+        drawCircle(circle);
+        var newCircle = tangentCircle(circle, angle, circle.radius + random(2, 12));
+        circle = newCircle;
+
+        angle += random(Math.PI * 0.5, Math.PI * 1.5);
+    }
 </script>
 </html>
