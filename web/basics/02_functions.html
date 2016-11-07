@@ -29,12 +29,11 @@
     // You can create your own functions, too
     // They follow the simple template below:
     // function [name]([parameters]) { [body: what to do] }
-    function distance(ax, ay, bx, by) {
-        var dx = ax - bx;
-        var dy = ay - by;
-        return Math.sqrt(dx * dx + dy * dy);
+    // blend between two numbers
+    function mix(a, b, t) {
+        return a + (b - a) * t;
     }
 
-    console.log(distance(3, 4, 4, 5));
+    console.log(mix(0, 100, 0.6));
 </script>
 </html>
