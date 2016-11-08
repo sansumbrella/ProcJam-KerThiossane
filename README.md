@@ -96,6 +96,10 @@ In a group of at least 3 people:
 
 I hope that was fun for everyone. Now, let's see how we can make the computer follow similar rules to create images.
 
+Materials:
+Computer
+Projection (adapter for computer?)
+
 - The first two processes are implemented in javascript.
 - Re-implement one "from scratch"
 - variables
