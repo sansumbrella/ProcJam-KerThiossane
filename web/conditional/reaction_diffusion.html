@@ -12,7 +12,7 @@
 </head>
 <body>
     <h1>Hello</h1>
-    <canvas id="canvas" width=160 height=120></canvas>
+    <canvas id="canvas" width=80 height=60></canvas>
 </body>
 <script type="text/javascript">
     var canvas = document.getElementById("canvas");
@@ -83,9 +83,11 @@
         for (var x = 0; x < grid.columns; x += 1) {
             for (var y = 0; y < grid.rows; y += 1) {
                 var pixel = (y * grid.columns + x) * 4;
-                pixels.data[pixel] = grid[x][y].a * 255;
-                pixels.data[pixel + 1] = 0.0;
-                pixels.data[pixel + 2] = grid[x][y].b * 255;
+                var a = grid[x][y].a;
+                var b = grid[x][y].b;
+                pixels.data[pixel] = b * 255;
+                pixels.data[pixel + 1] = b * 255;
+                pixels.data[pixel + 2] = b * 255;
                 pixels.data[pixel + 3] = 255;
             }
         }
@@ -95,19 +97,23 @@
     var grid_now = createGrid(canvas.width, canvas.height);
     var grid_next = createGrid(canvas.width, canvas.height);
 
-    for (var i = 40; i < 50; i += 1) {
-        for (var j = 40; j < 50; j += 1) {
+    for (var i = 40; i < 45; i += 1) {
+        for (var j = 40; j < 45; j += 1) {
             grid_now[i][j].b = 1.0;
         }
     }
     drawSimulation(grid_now);
 
-    function update() {
+    function updateAndSwap() {
         updateSimulation(grid_now, grid_next);
         // swap so the next step uses the new values
         var temp = grid_now;
         grid_now = grid_next;
-        grid_next = grid_now;        
+        grid_next = temp;
+    }
+
+    function update() {
+        updateAndSwap();
         drawSimulation(grid_now);
         
         if (running) {

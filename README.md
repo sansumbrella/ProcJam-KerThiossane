@@ -42,6 +42,7 @@ _The Annals of the Parrigues_ is a short story written using procedural content 
 Casey Reas has a series of work called “Process” that consist of a set of simple rules executed by software to make continuously-evolving drawings. These processes are defined by a set of drawn “elements” that have a “behavior” they follow on screen.
 
 ### Conditional Design
+16-18
 
 Materials:
 - Multi-colored markers (at least 3 colors)
@@ -118,6 +119,7 @@ Projection (adapter for computer?)
 [Tutoriel canvas](https://developer.mozilla.org/fr/docs/Tutoriel_canvas)
 
 ## Saturday Welcome
+10—2 or 3
 
 ### Welcome back.
 Hello. Today we will take time to develop our own procedural content generators. These can be physical objects or pieces of software: what you make is up to you.

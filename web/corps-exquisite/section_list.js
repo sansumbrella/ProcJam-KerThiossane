@@ -1,0 +1,1 @@
+var sections = ["line", "curve"];
