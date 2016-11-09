@@ -152,7 +152,7 @@ var app = (function () {
         } );
 
     canvas.addEventListener("mousemove", function (event) {
-        mouseX = util.clamp(event.clientX, 0, canvas.width);
+        mouseX = util.clamp(event.clientX - canvas.offsetLeft, 0, canvas.width);
         mouseY = util.clamp(event.clientY - canvas.offsetTop + window.scrollY, 0, canvas.height);
     });
 
@@ -225,7 +225,9 @@ var app = (function () {
 
     function updateScenes(time) {
         var input = mouseY;
-        var offset = Math.floor(app.scenes.length / 2);
+        var t = mouseX / canvas.width;
+        var offset = Math.floor(t * app.scenes.length);
+        // offset = mouseX / canvas.width;
         for (var i = 0; i < app.scenes.length; i += 1) {
             var index = (i + offset) % app.scenes.length;
             var scene = app.scenes[index];
@@ -233,6 +235,15 @@ var app = (function () {
             input = output || input; // if no valid output, reuse input
             input = util.clamp(input, 0, canvas.height);
         }
+    }
+
+    function drawCursor() {
+        context.save();
+        context.translate(mouseX, mouseY);
+        context.beginPath();
+        context.arc(0, 0, 18, 0, Math.PI * 2);
+        context.fill();
+        context.restore();
     }
 
     function drawScenes(time) {
@@ -243,6 +254,8 @@ var app = (function () {
             scene.sketch.draw(context);
             context.restore();
         }
+
+        // drawCursor();
     }
 
     function update() {
