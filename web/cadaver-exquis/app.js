@@ -9,39 +9,6 @@ var util = (function () {
         return mix(low, high, Math.random());
     }
 
-    // create a k-sided die (values from 1—k)
-    function roll_die(k) {
-        function fn () {
-            return Math.floor(Math.random() * k) + 1;
-        }
-        fn.range = { low: 1, high: k };
-        return fn;
-    }
-
-    // roll n k-sided dice
-    function roll_n_dice(n, die){
-        return function () {
-            var sum = 0;
-            for (var i = 0; i < n; i += 1) {
-                sum += die();
-            }
-            return sum;
-        }
-    }
-
-    function roll_n_dice_normalized(n, die) {
-        var low = die.range.low * n;
-        var high = die.range.high * n;
-        var roll = roll_n_dice(n, die);
-        return function () {
-            return (roll() - low) / (high - low);
-        }
-    }
-
-    var d6 = roll_die(6);
-    var roll_3d6 = roll_n_dice(3, d6);
-    var roll_3d6_normal = roll_n_dice_normalized(3, d6);
-
     // derived from c++ library glm.
     // input in range 0-1 for each field.
     function hsv_to_rgb(h, s, v) {
@@ -111,10 +78,7 @@ var util = (function () {
     return {
         mix: mix,
         random: random,
-        hsv_to_rgb: hsv_to_rgb,
-        roll_die: roll_die,
-        roll_3d6: roll_3d6,
-        roll_3d6_normal: roll_3d6_normal
+        hsv_to_rgb: hsv_to_rgb
     }
 }());
 

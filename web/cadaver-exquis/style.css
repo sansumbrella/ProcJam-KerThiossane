@@ -1,0 +1,14 @@
+
+body {
+	background: #CCC;
+}
+
+canvas {
+    margin: 0 auto;
+    display: block;
+    background: #FFF;
+}
+
+h1 {
+    font-family: sans-serif;
+}
