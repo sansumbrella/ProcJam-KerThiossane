@@ -1,1 +1,1 @@
-var sections = ["line", "circle"];
+var sections = ["line", "circle", "image"];

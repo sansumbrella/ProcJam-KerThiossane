@@ -14,7 +14,7 @@ var line = (function() {
         // it must return an output x to be used as input for the next frame
         function update(input, time) {
             leftY = input;
-            rightY = util.mix(frame.top, frame.bottom, (Math.cos(time * speed) + 1) / 2);
+            rightY = leftY + util.mix(-frame.height * 0.5, frame.height * 0.5, (Math.cos(time * speed) + 1) / 2);
 
             // return a value to be used as the `input` for your neighboring frame.
             return rightY;
