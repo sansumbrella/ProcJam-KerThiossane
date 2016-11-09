@@ -1,34 +1,113 @@
-var queue = [];
+// utilities
+function mix(a, b, t) {
+    return a + (b - a) * t;
+}
 
-for (var section of sections) {
-    queue.push(section);
-    var code = document.createElement("script");
-    code.src = "sections/" + section + ".js";
-    document.body.appendChild(code);
-    code.onload = (function (section) {
-        return function () {
-            console.log("Loaded section:", section);
-            var index = queue.indexOf(section);
-            if (index >= 0) {
-                queue.splice(index, 1);
-            }
-            if (queue.length === 0) {
-                allLoaded();
-            }
+function random(low, high) {
+    return mix(low, high, Math.random());
+}
 
-            if (window.hasOwnProperty(section)) {
+// derived from c++ library glm.
+// input in range 0-1 for each field.
+function hsv_to_rgb(h, s, v) {
+    var hsv = {
+        x: h * 360,
+        y: s,
+        z: v
+    };
+    // start with achromatic version
+    var rgbColor = {
+        r: hsv.z,
+        g: hsv.z,
+        b: hsv.z
+    };
 
-            }
-            else {
-                console.error("The section file '" + section + ".js' didn't create a variable named '" + section + "'.");
-            }
+    if(hsv.y !== 0) {
+        var sector = Math.floor(hsv.x / 60);
+        var frac = (hsv.x / 60) - sector;
+        // factorial part of h
+        var o = hsv.z * (1 - hsv.y);
+        var p = hsv.z * (1 - hsv.y * frac);
+        var q = hsv.z * (1 - hsv.y * (1 - frac));
+
+        switch(Math.round(sector))
+        {
+        default:
+        case 0:
+            rgbColor.r = hsv.z;
+            rgbColor.g = q;
+            rgbColor.b = o;
+            break;
+        case 1:
+            rgbColor.r = p;
+            rgbColor.g = hsv.z;
+            rgbColor.b = o;
+            break;
+        case 2:
+            rgbColor.r = o;
+            rgbColor.g = hsv.z;
+            rgbColor.b = q;
+            break;
+        case 3:
+            rgbColor.r = o;
+            rgbColor.g = p;
+            rgbColor.b = hsv.z;
+            break;
+        case 4:
+            rgbColor.r = q;
+            rgbColor.g = o;
+            rgbColor.b = hsv.z;
+            break;
+        case 5:
+            rgbColor.r = hsv.z;
+            rgbColor.g = o;
+            rgbColor.b = p;
+            break;
         }
-    }(section));
+    }
+
+    for (var component in rgbColor) {
+        rgbColor[component] = Math.round(rgbColor[component] * 255);
+    }
+
+    return rgbColor;
 }
 
-function allLoaded() {
-    console.log("Everyone is loaded, see:");
-    console.log(window[sections[0]], window["curve"], window["line"]);
-}
+(function () {
+    function loadSections() {
+        var queue = [];
 
-console.log("Finished loading sections?");
+        for (var section of sections) {
+            queue.push(section);
+            var code = document.createElement("script");
+            code.src = "sections/" + section + ".js";
+            document.body.appendChild(code);
+            code.onload = (function (section) {
+                return function () {
+                    console.log("Loaded section:", section);
+                    var index = queue.indexOf(section);
+                    if (index >= 0) {
+                        queue.splice(index, 1);
+                    }
+                    if (queue.length === 0) {
+                        allLoaded();
+                    }
+
+                    if (window.hasOwnProperty(section)) {
+
+                    }
+                    else {
+                        console.error("The section file '" + section + ".js' didn't create a variable named '" + section + "'.");
+                    }
+                }
+            }(section));
+        }
+    }
+
+    function allLoaded() {
+        console.log("Everyone is loaded, see:");
+        console.log(window[sections[0]], window["curve"], window["line"]);
+    }
+
+    loadSections();
+}());
