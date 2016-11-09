@@ -4,7 +4,7 @@ var line = (function() {
     // Define a function that creates your section.
     // This function will return an object that has an "update" and "draw" function.
     function create (frame) {
-        var lineWidth = util.random(5, 50);
+        var lineWidth = 25; // util.random(5, 50);
         var speed = util.random(0.5, 1.5) * 0.001;
         var rightY = 0;
         var leftY = 0;
@@ -25,15 +25,18 @@ var line = (function() {
         function draw(ctx) {
             // ctx.clearRect(frame.left, frame.top, frame.right, frame.bottom);
             ctx.beginPath();
-            ctx.rect(150, 200, 4000, 100);
+            ctx.fillStyle = util.hsva(0.5, 1.0, 1.0, 0.01);
+            console.log(ctx.fillStyle);
+            ctx.rect(0, 0, frame.width + 1, frame.height);
             ctx.fill();
 
             ctx.lineWidth = lineWidth;
+            ctx.lineCap = "square";
             ctx.strokeStyle = "#F90";
 
             ctx.beginPath();
-            ctx.moveTo(frame.left, leftY);
-            ctx.lineTo(frame.right, rightY);
+            ctx.moveTo(frame.left - 5, leftY);
+            ctx.lineTo(frame.right + 5, rightY);
             ctx.stroke();
         }
 

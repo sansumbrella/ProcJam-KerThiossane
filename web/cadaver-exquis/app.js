@@ -79,11 +79,17 @@ var util = (function () {
         return rgbColor;
     }
 
-    function color(r, g, b) {
+    function hsva(h, s, v, a) {
+        var rgb = hsv_to_rgb(h, s, v);
+        return "rgba(" + rgb.r + ", " + rgb.g + ", " + rgb.b + ", " + a + ")";
+    }
+
+    function color(r, g, b, a) {
         var r = r || 255,
             g = g || r,
-            b = b || r;
-        return "color(" + r + ", " + g + ", " + b + ")";
+            b = b || r,
+            a = a || 1.0;
+        return "rgba(" + r + ", " + g + ", " + b + ", " + a +  ")";
     }
 
     return {
@@ -91,6 +97,7 @@ var util = (function () {
         random: random,
         pick: pick,
         hsv_to_rgb: hsv_to_rgb,
+        hsva: hsva,
         color: color,
     }
 }());
@@ -203,7 +210,6 @@ var app = (function () {
     }
 
     function drawScenes(time) {
-        context.clearRect(0, 0, canvas.width, canvas.height);
         for (var scene of app.scenes) {
             context.save();
             context.translate(scene.offset, 0);
