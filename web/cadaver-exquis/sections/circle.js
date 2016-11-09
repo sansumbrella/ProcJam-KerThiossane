@@ -1,46 +1,37 @@
 // The name of this variable must match the name of your file to work.
 // e.g. if your file is "wobble.js", the variable should be named "wobble".
-var line = (function() {
+var circle = (function() {
     // Define a function that creates your section.
     // This function will return an object that has an "update" and "draw" function.
     function create (frame) {
-        var lineWidth = 25; // util.random(5, 50);
-        var speed = util.random(0.5, 1.5) * 0.001;
-        var rightY = 0;
+        var radius = util.random(5, frame.width);
+        var y = 0;
+        var targetY = 0;
         var leftY = 0;
 
         // use this function to change your section to respond to the previous drawing
         // you can also use this for animation
         // it must return an output x to be used as input for the next frame
         function update(input, time) {
-            leftY = input;
-            rightY = util.mix(frame.top, frame.bottom, (Math.cos(time * speed) + 1) / 2);
+            targetY = input;
+            var oldY = y;
+            y = util.mix(y, targetY, 0.01);
 
             // return a value to be used as the frame.inputX for your neighboring frame.
-            return rightY;
+            return oldY;
         }
 
         // use this function to draw your section to screen
         // you can draw in the area [[0, 0], [width, height]]
         function draw(ctx) {
-            // ctx.clearRect(frame.left, frame.top, frame.right, frame.bottom);
+            ctx.clearRect(frame.left, frame.top, frame.width, frame.height);
             ctx.beginPath();
-            ctx.fillStyle = util.hsva(0.5, 1.0, 1.0, 0.01);
-            ctx.rect(0, 0, frame.width + 1, frame.height);
+            ctx.arc(util.mix(frame.left, frame.right, 0.5), y, radius, 0, Math.PI * 2);
             ctx.fill();
-
-            ctx.lineWidth = lineWidth;
-            ctx.lineCap = "square";
-            ctx.strokeStyle = "#F90";
-
-            ctx.beginPath();
-            ctx.moveTo(frame.left - 5, leftY);
-            ctx.lineTo(frame.right + 5, rightY);
-            ctx.stroke();
         }
 
         return {
-            name: "soft line",
+            name: "floating circle",
             author: "David Wicks",
             update: update,
             draw: draw,

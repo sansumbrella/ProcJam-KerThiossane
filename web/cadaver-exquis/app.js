@@ -13,6 +13,15 @@ var util = (function () {
         return array[Math.floor(Math.random() * array.length)];
     }
 
+    function clamp(value, low, high) {
+        if (low > high) {
+            var temp = low;
+            low = high;
+            high = temp;
+        }
+        return Math.min(Math.max(value, low), high);
+    }
+
     // derived from c++ library glm.
     // input in range 0-1 for each field.
     function hsv_to_rgb(h, s, v) {
@@ -99,6 +108,7 @@ var util = (function () {
         hsv_to_rgb: hsv_to_rgb,
         hsva: hsva,
         color: color,
+        clamp: clamp
     }
 }());
 
@@ -205,6 +215,7 @@ var app = (function () {
         for (var scene of app.scenes) {
             var output = scene.sketch.update(input, time);
             input = output || input; // if no valid output, reuse input
+            input = util.clamp(input, 0, canvas.height);
         }
     }
 
