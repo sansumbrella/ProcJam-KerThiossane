@@ -6,7 +6,7 @@ var line = (function() {
     function create (frame) {
         var lineWidth = util.random(10, 50);
         var lineRange = util.random(frame.hauteur * 0.15, frame.hauteur * 0.5);
-        var speed = util.random(0.5, 1.5) * 0.001;
+        var speed = util.random(0.5, 1.5);
         var rightY = frame.hauteur / 2;
         var leftY = frame.hauteur / 2;
 
