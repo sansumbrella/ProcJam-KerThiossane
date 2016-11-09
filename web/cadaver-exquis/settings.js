@@ -1,4 +1,4 @@
 var settings = {
-	sections: ["line", "circle", "image"],
+	sections: ["template", "line", "circle", "image"],
 	columns: 7
 }

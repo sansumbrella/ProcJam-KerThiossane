@@ -94,10 +94,6 @@ var util = (function () {
     }
 
     function color(r, g, b, a) {
-        var r = r || 255,
-            g = g || r,
-            b = b || r,
-            a = a || 1.0;
         return "rgba(" + r + ", " + g + ", " + b + ", " + a +  ")";
     }
 
@@ -107,7 +103,7 @@ var util = (function () {
         pick: pick,
         hsv_to_rgb: hsv_to_rgb,
         hsva: hsva,
-        color: color,
+        rgba: color,
         clamp: clamp,
     }
 }());
@@ -146,7 +142,9 @@ var app = (function () {
         canvas = document.getElementById("corps"),
         context = canvas.getContext("2d"),
         mouseX = 0,
-        mouseY = 0;
+        mouseY = 0,
+        temps_base = new Date().getTime() / 1000,
+        temps_dernier = temps_base;
     // size to fill on startup
     canvas.width = Math.floor(window.innerWidth);
     canvas.height = Math.floor(window.innerHeight * 0.9) - canvas.offsetTop;
@@ -272,14 +270,14 @@ var app = (function () {
         }
     }
 
-    function updateScenes(time) {
+    function updateScenes(temps, dt) {
         var input = mouseY;
         var offset = sceneIndexFromPosition(mouseX);
         // offset = mouseX / canvas.width;
         for (var i = 0; i < app.scenes.length; i += 1) {
             var index = (i + offset) % app.scenes.length;
             var scene = app.scenes[index];
-            var output = scene.sketch.update(input, time);
+            var output = scene.sketch.update(input, temps, dt);
             input = output || input; // if no valid output, reuse input
             input = util.clamp(input, 0, canvas.height);
         }
@@ -307,8 +305,10 @@ var app = (function () {
     }
 
     function update() {
-        var time = new Date().getTime();
-        updateScenes(time);
+        var temps = new Date().getTime() / 1000;
+        var dt = temps - temps_dernier;
+        temps_dernier = temps;
+        updateScenes(temps - temps_base, dt);
         drawScenes(context);
 
         if (app.running) {
