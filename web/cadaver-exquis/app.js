@@ -166,7 +166,7 @@ var app = (function () {
     function loadSections() {
         var queue = [];
 
-        for (var section of appData.sections) {
+        for (var section of settings.sections) {
             queue.push(section);
             var code = document.createElement("script");
             code.src = "sections/" + section + ".js";
@@ -207,7 +207,7 @@ var app = (function () {
             console.log("Loaded sections.");
         }
 
-        buildScenes(context, appData.columns);
+        buildScenes(context, settings.columns);
         app.ready = true;
         update();
     }
