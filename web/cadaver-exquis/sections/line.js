@@ -5,26 +5,36 @@ var line = (function() {
     // This function will return an object that has an "update" and "draw" function.
     function create (frame) {
         var lineWidth = util.random(5, 50);
-        var speed = util.random(0.5, 1.5);
-        var rightX = 0;
+        var speed = util.random(0.5, 1.5) * 0.001;
+        var rightY = 0;
+        var leftY = 0;
 
         // use this function to change your section to respond to the previous drawing
         // you can also use this for animation
         // it must return an output x to be used as input for the next frame
         function update(input, time) {
-            rightX = util.mix(frame.top, frame.bottom, (Math.cos(frame.time) + 1) / 2);
+            leftY = input;
+            rightY = util.mix(frame.top, frame.bottom, (Math.cos(time * speed) + 1) / 2);
 
             // return a value to be used as the frame.inputX for your neighboring frame.
-            return rightX;
+            return rightY;
         }
 
         // use this function to draw your section to screen
         // you can draw in the area [[0, 0], [width, height]]
         function draw(ctx) {
+            // ctx.clearRect(frame.left, frame.top, frame.right, frame.bottom);
+            ctx.beginPath();
+            ctx.rect(50, 200, 100, 100);
+            ctx.fill();
+
+            ctx.lineWidth = lineWidth;
+            ctx.strokeStyle = "#F90";
 
             ctx.beginPath();
-            ctx.rect(100, 50, 100, 100);
-            ctx.fill();
+            ctx.moveTo(frame.left, leftY);
+            ctx.lineTo(frame.right, rightY);
+            ctx.stroke();
         }
 
         return {

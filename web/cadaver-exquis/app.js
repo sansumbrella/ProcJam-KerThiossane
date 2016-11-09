@@ -176,7 +176,7 @@ var app = (function () {
     }
 
     function buildScenes(context, count) {
-        var width = context.canvas.width / count;
+        var width = Math.round(context.canvas.width / count);
         var height = context.canvas.height;
         var frame = createFrame(width, height);
         var clipShape = new Path2D();
@@ -202,12 +202,40 @@ var app = (function () {
         }
     }
 
-    function drawScenes(time) {
-        context.clearRect(0, 0, canvas.width, canvas.height);
+    function drawLine() {
+        context.save();
+        context.beginPath();
         context.moveTo(0, 0);
         context.lineWidth = 10;
         context.lineTo(canvas.width, canvas.height);
         context.stroke();
+        context.restore();
+    }
+
+    function drawRect() {
+        context.save();
+        context.beginPath();
+        context.translate(200, 100);
+        context.rect(0, 0, 300, 50);
+        context.fill();
+        context.lineWidth = 5;
+        context.strokeStyle = "#FF0";
+        context.stroke();
+        context.restore();
+    }
+
+    function drawScenes(time) {
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        for (var scene of app.scenes) {
+            context.save();
+            context.translate(scene.offset, 0);
+            context.clip(scene.clip);
+
+            scene.sketch.draw(context);
+            drawRect();
+            context.restore();
+        }
+
         /*
         context.save();
         context.fillStyle = "#FF0";
