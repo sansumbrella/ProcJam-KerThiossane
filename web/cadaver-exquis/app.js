@@ -75,14 +75,49 @@ var util = (function () {
         return rgbColor;
     }
 
+    function createFrame(width, height, input, time) {
+        var frame = {
+            width: width,
+            height: height,
+            get top () { return 0; },
+            get bottom () { return height; },
+            get left () { return 0; },
+            get right () { return width; },
+            input: input,
+            time: time
+        };
+
+        return frame;
+    }
+
+    function defaultFrame() {
+        return createFrame(640, 100, 320, 0);
+    }
+
+    function color(r, g, b) {
+        var r = r || 255,
+            g = g || r,
+            b = b || r;
+        return "color(" + r + ", " + g + ", " + b + ")";
+    }
+
     return {
         mix: mix,
         random: random,
-        hsv_to_rgb: hsv_to_rgb
+        hsv_to_rgb: hsv_to_rgb,
+        createFrame: createFrame,
+        defaultFrame: defaultFrame,
+        color: color
     }
 }());
 
-(function () {
+// Initialize and run the application
+var app = (function () {
+    var app = {
+        ready: false,
+        running: true
+    };
+
     function loadSections() {
         var queue = [];
 
@@ -114,9 +149,30 @@ var util = (function () {
     }
 
     function allLoaded() {
+        app.ready = true;
         console.log("Everyone is loaded, see:");
         console.log(window[sections[0]], window["curve"], window["line"]);
     }
 
+    function updateSections(time) {
+
+    }
+
+    function drawSections(time) {
+
+    }
+
+    function update() {
+        var time = new Date().getTime();
+        updateSections(time);
+        drawSections(context);
+
+        if (app.running) {
+            window.requestAnimationFrame(update);
+        }
+    }
+
     loadSections();
+
+    return app;
 }());
