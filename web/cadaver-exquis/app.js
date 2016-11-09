@@ -168,13 +168,12 @@ var app = (function () {
     });
 
     function sceneIndexFromPosition(x) {
-        var t = x / canvas.width;
+        var t = util.clamp(x / canvas.width, 0, 1);
         return Math.floor(t * app.scenes.length);
     }
 
     canvas.addEventListener("mouseup", function (event) {
         var index = sceneIndexFromPosition(event.clientX - canvas.offsetLeft);
-        console.log("canvas mouse up", index);
         context.save();
         context.clearRect(index * columnWidth, 0, columnWidth, canvas.height);
         context.restore();
