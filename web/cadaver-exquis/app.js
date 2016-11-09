@@ -239,7 +239,7 @@ var app = (function () {
         author.textContent = " by " + sketch.author;
         label.classList.add("caption");
         label.style.left = offset + "px";
-        label.style.width = columnWidth + "px";
+        label.style.width = (columnWidth - 10) + "px";
         label.appendChild(title);
         label.appendChild(author);
         document.body.appendChild(label);
