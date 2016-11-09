@@ -28,7 +28,7 @@ var circle = (function() {
         }
 
         return {
-            name: "floating circle",
+            title: "Floating Circle " + Math.floor(radius),
             author: "David Wicks",
             update: update,
             draw: draw,

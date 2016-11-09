@@ -177,7 +177,9 @@ var app = (function () {
         context.save();
         context.clearRect(index * columnWidth, 0, columnWidth, canvas.height);
         context.restore();
-        app.scenes[index] = buildScene(util.pick(app.builders), index * columnWidth);
+        var offset = app.scenes[index].offset;
+        app.scenes[index].destroy();
+        app.scenes[index] = buildScene(util.pick(app.builders), offset);
     });
 
     function loadSections() {
@@ -229,11 +231,37 @@ var app = (function () {
         update();
     }
 
-    // Combine a newly created
-    function buildScene(builder, left) {
+    function createLabel(sketch, offset) {
+        var label = document.createElement("div");
+        var title = document.createElement("h2");
+        var author = document.createElement("h3");
+        title.textContent = sketch.title;
+        author.textContent = " by " + sketch.author;
+        label.classList.add("caption");
+        label.style.left = offset + "px";
+        label.style.width = columnWidth + "px";
+        label.appendChild(title);
+        label.appendChild(author);
+        document.body.appendChild(label);
+
         return {
-            sketch: builder.create(frame),
-            offset: left
+            destroy: function () {
+                delete this.destroy;
+                this.destroy = function () {};
+                label.parentElement.removeChild(label);
+            }
+        };
+    }
+
+    // Combine a newly created
+    function buildScene(builder, offset) {
+        var sketch = builder.create(frame);
+        var label = createLabel(sketch, offset);
+
+        return {
+            sketch: sketch,
+            offset: offset,
+            destroy: label.destroy
         }
     }
 

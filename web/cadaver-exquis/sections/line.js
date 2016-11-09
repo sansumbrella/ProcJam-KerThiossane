@@ -43,7 +43,7 @@ var line = (function() {
         // This is the result of your object creation function.
         // It should have "update" and "draw" members.
         return {
-            name: "soft line",
+            title: "Soft Line",
             author: "David Wicks",
             update: update,
             draw: draw,

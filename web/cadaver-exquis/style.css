@@ -1,19 +1,40 @@
 
 body {
-	background: #000;
-	margin: 0;
-	padding: 0;
+    background: #000;
+    color: #FFF;
+    margin: 0;
+    padding: 0;
+    font-family: Helvetica, sans-serif;
 }
 
 canvas {
-	padding: 0;
+    padding: 0;
     margin: 0;
     display: block;
     background: #FFF;
 }
 
 h1 {
-    font-family: sans-serif;
     padding: 20px 0 0 20px;
-    color: #DDD;
+}
+
+div.caption {
+    margin: 0;
+    padding: 5px 10px;
+    display: inline-block;
+    position: absolute;
+}
+
+h2 {
+    font-size: 16px;
+}
+
+h3 {
+    font-size: 12px;
+    font-weight: normal;
+}
+
+h2, h3 {
+    padding: 0;
+    margin: 10px 0;
 }

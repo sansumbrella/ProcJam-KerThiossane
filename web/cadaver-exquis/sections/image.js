@@ -27,7 +27,7 @@ var image = (function() {
         }
 
         return {
-            name: "image",
+            title: "Butterfly",
             author: "David Wicks",
             update: update,
             draw: draw,
