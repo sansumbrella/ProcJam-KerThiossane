@@ -175,7 +175,10 @@ var app = (function () {
     canvas.addEventListener("mouseup", function (event) {
         var index = sceneIndexFromPosition(event.clientX - canvas.offsetLeft);
         console.log("canvas mouse up", index);
-        // app.scenes[index] = createScene(util.pick(app.builders));
+        context.save();
+        context.clearRect(index * columnWidth, 0, columnWidth, canvas.height);
+        context.restore();
+        app.scenes[index] = buildScene(util.pick(app.builders), index * columnWidth);
     });
 
     function loadSections() {
