@@ -115,7 +115,9 @@ var util = (function () {
 var app = (function () {
     var app = {
         ready: false,
-        running: true
+        running: true,
+        builders: [],
+        scenes: []
     };
 
     function loadSections() {
@@ -128,7 +130,20 @@ var app = (function () {
             document.body.appendChild(code);
             code.onload = (function (section) {
                 return function () {
-                    console.log("Loaded section:", section);
+                    var loadedObject = window[section];
+                    if (loadedObject) {
+                        if (loadedObject.hasOwnProperty("create")) {
+                            console.log("Pushing", loadedObject, "from '" + section + ".js'");
+                            app.builders.push(loadedObject);
+                        }
+                        else {
+                            console.error("The section '" + section + "' needs to have a 'create' function. See 'line.js' for a working example.");
+                        }
+                    }
+                    else {
+                        console.error("The section file '" + section + ".js' should create a variable named '" + section + "'. See 'line.js' for a working example.");
+                    }
+
                     var index = queue.indexOf(section);
                     if (index >= 0) {
                         queue.splice(index, 1);
@@ -136,22 +151,28 @@ var app = (function () {
                     if (queue.length === 0) {
                         allLoaded();
                     }
-
-                    if (window.hasOwnProperty(section)) {
-
-                    }
-                    else {
-                        console.error("The section file '" + section + ".js' didn't create a variable named '" + section + "'.");
-                    }
                 }
             }(section));
         }
     }
 
     function allLoaded() {
+        console.log("Loaded sections.");
+        buildScenes(5);
+        console.log(app.builders);
         app.ready = true;
-        console.log("Everyone is loaded, see:");
-        console.log(window[sections[0]], window["curve"], window["line"]);
+    }
+
+    function createScene(section) {
+        return {
+            section: section()
+        }
+    }
+
+    function buildScenes(count) {
+        for (var i = 0; i < count; i += 1) {
+
+        }
     }
 
     function updateSections(time) {
