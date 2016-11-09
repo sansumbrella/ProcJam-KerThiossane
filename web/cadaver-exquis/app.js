@@ -150,6 +150,10 @@ var app = (function () {
     // size to fill on startup
     canvas.width = Math.floor(window.innerWidth);
     canvas.height = Math.floor(window.innerHeight * 0.9) - canvas.offsetTop;
+    var columnWidth = Math.ceil(context.canvas.width / settings.columns);
+    var frame = createFrame(columnWidth, canvas.height);
+    var clipShape = new Path2D();
+    clipShape.rect(0, 0, columnWidth, canvas.height);
 
     Object.defineProperty(util, "mouseX", {
             get: function () { return mouseX; }
@@ -161,6 +165,17 @@ var app = (function () {
     canvas.addEventListener("mousemove", function (event) {
         mouseX = util.clamp(event.clientX - canvas.offsetLeft, 0, canvas.width);
         mouseY = util.clamp(event.clientY - canvas.offsetTop + window.scrollY, 0, canvas.height);
+    });
+
+    function sceneIndexFromPosition(x) {
+        var t = x / canvas.width;
+        return Math.floor(t * app.scenes.length);
+    }
+
+    canvas.addEventListener("mouseup", function (event) {
+        var index = sceneIndexFromPosition(event.clientX - canvas.offsetLeft);
+        console.log("canvas mouse up", index);
+        // app.scenes[index] = createScene(util.pick(app.builders));
     });
 
     function loadSections() {
@@ -207,33 +222,29 @@ var app = (function () {
             console.log("Loaded sections.");
         }
 
-        buildScenes(context, settings.columns);
+        buildScenes(settings.columns, columnWidth);
         app.ready = true;
         update();
     }
 
-    function buildScenes(context, count) {
-        var width = Math.ceil(context.canvas.width / count);
-        var height = context.canvas.height;
-        var frame = createFrame(width, height);
-        var clipShape = new Path2D();
-        clipShape.rect(0, 0, width, height);
+    // Combine a newly created
+    function buildScene(builder, left) {
+        return {
+            sketch: builder.create(frame),
+            offset: left
+        }
+    }
 
+    function buildScenes(count, width) {
         for (var i = 0; i < count; i += 1) {
-            var sketch = util.pick(app.builders).create(frame);
-            app.scenes.push({
-                sketch: sketch,
-                offset: i * width,
-                frame: frame,
-                clip: clipShape
-            });
+            var scene = buildScene(util.pick(app.builders), i * width);
+            app.scenes.push(scene);
         }
     }
 
     function updateScenes(time) {
         var input = mouseY;
-        var t = mouseX / canvas.width;
-        var offset = Math.floor(t * app.scenes.length);
+        var offset = sceneIndexFromPosition(mouseX);
         // offset = mouseX / canvas.width;
         for (var i = 0; i < app.scenes.length; i += 1) {
             var index = (i + offset) % app.scenes.length;
@@ -257,7 +268,7 @@ var app = (function () {
         for (var scene of app.scenes) {
             context.save();
             context.translate(scene.offset, 0);
-            context.clip(scene.clip);
+            context.clip(clipShape);
             scene.sketch.draw(context);
             context.restore();
         }
