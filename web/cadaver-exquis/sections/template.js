@@ -5,8 +5,8 @@ var template = (function() {
     // This function will return an object that has an "update" and "draw" function.
     function create (frame) {
         // Set up some parameters for your drawing.
-        var x = 50; // util.random(frame.gauche, frame.droit);
-        var y = 50; // util.random(frame.haut, frame.bas);
+        var x = util.random(frame.gauche, frame.droit);
+        var y = util.random(frame.haut, frame.bas);
         var angle = 0;
         var forme = new Path2D();
         forme.rect(-50, -50, 100, 100);
@@ -22,11 +22,18 @@ var template = (function() {
         function draw(ctx) {
             ctx.clearRect(frame.gauche, frame.haut, frame.largeur, frame.hauteur);
 
-            console.log("angle", angle);
             ctx.fillStyle = util.rgba(255, 255, 0, 1.0);
+
+            ctx.save();
             ctx.translate(x, y);
             ctx.rotate(angle);
             ctx.fill(forme);
+            ctx.restore();
+
+            ctx.save();
+            ctx.translate(util.mouseX, util.mouseY);
+            ctx.fill(forme);
+            ctx.restore();
         }
 
         return {

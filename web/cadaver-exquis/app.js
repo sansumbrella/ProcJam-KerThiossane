@@ -153,11 +153,12 @@ var app = (function () {
     var clipShape = new Path2D();
     clipShape.rect(0, 0, columnWidth, canvas.height);
 
+    util.currentOffset = 0;
     Object.defineProperty(util, "mouseX", {
-            get: function () { return mouseX; }
+            get: function () { return mouseX - this.currentOffset; }
         } );
     Object.defineProperty(util, "mouseY", {
-            get: function () { return mousey; }
+            get: function () { return mouseY; }
         } );
 
     canvas.addEventListener("mousemove", function (event) {
@@ -277,6 +278,7 @@ var app = (function () {
         for (var i = 0; i < app.scenes.length; i += 1) {
             var index = (i + offset) % app.scenes.length;
             var scene = app.scenes[index];
+            util.currentOffset = scene.offset;
             var output = scene.sketch.update(input, temps, dt);
             input = output || input; // if no valid output, reuse input
             input = util.clamp(input, 0, canvas.height);
@@ -294,6 +296,7 @@ var app = (function () {
 
     function drawScenes(time) {
         for (var scene of app.scenes) {
+            util.currentOffset = scene.offset;
             context.save();
             context.translate(scene.offset, 0);
             context.clip(clipShape);

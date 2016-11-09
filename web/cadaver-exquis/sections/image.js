@@ -23,7 +23,6 @@ var image = (function() {
         function draw(ctx) {
             ctx.translate(frame.width / 2, y);
             ctx.rotate(rotation);
-            console.log("rotation", rotation);
             ctx.drawImage(img, -img.width / 2, -img.height / 2, img.width, img.height);
         }
 
