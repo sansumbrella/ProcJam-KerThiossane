@@ -34,15 +34,15 @@ var line = (function() {
 
     // use this function to change up how your section is drawn
     function randomize(scene) {
-        lineWidth = random(5, 50);
-        speed = random(0.5, 1.5);
+        lineWidth = util.random(5, 50);
+        speed = util.random(0.5, 1.5);
     }
 
     // use this function to change your section to respond to the previous drawing
     // you can also use this for animation
     // it must return an output x to be used as input for the next scene
     function update(scene) {
-        bottomX = mix(scene.left, scene.right, (Math.cos(scene.time) + 1) / 2);
+        bottomX = util.mix(scene.left, scene.right, (Math.cos(scene.time) + 1) / 2);
 
         // return a value to be used as the scene.inputX for your neighboring scene.
         return bottomX;
