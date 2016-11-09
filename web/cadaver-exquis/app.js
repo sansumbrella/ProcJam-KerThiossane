@@ -148,8 +148,8 @@ var app = (function () {
         mouseX = 0,
         mouseY = 0;
     // size to fill on startup
-    canvas.width = Math.floor(window.innerWidth * 0.95);
-    canvas.height = Math.floor(window.innerHeight * 0.95) - canvas.offsetTop;
+    canvas.width = Math.floor(window.innerWidth);
+    canvas.height = Math.floor(window.innerHeight * 0.9) - canvas.offsetTop;
 
     Object.defineProperty(util, "mouseX", {
             get: function () { return mouseX; }

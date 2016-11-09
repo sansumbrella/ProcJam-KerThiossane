@@ -1,16 +1,19 @@
 
 body {
-	background: #CCC;
+	background: #000;
+	margin: 0;
+	padding: 0;
 }
 
 canvas {
 	padding: 0;
-    margin: 0 auto;
+    margin: 0;
     display: block;
     background: #FFF;
 }
 
 h1 {
     font-family: sans-serif;
-    padding-left: 2%;
+    padding: 20px 0 0 20px;
+    color: #DDD;
 }
