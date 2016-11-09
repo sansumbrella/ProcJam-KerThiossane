@@ -5,7 +5,7 @@ var image = (function() {
     // This function will return an object that has an "update" and "draw" function.
     function create (frame) {
         // Set up some parameters for our drawing.
-        var y = 0;
+        var y = frame.hauteur / 2;
         var rotation = 0;
         var rotationSpeed = util.random(0.5, 1.5) * 0.001;
         var img = new Image();

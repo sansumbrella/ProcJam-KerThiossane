@@ -5,9 +5,8 @@ var circle = (function() {
     // This function will return an object that has an "update" and "draw" function.
     function create (frame) {
         var radius = util.random(5, frame.width);
-        var y = 0;
-        var targetY = 0;
-        var leftY = 0;
+        var y = frame.hauteur / 2;
+        var targetY = frame.hauteur / 2;
 
         // use this function to change your drawing's variables to respond to the previous drawing
         function update(input, time) {

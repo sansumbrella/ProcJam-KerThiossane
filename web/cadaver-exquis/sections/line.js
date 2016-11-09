@@ -4,17 +4,18 @@ var line = (function() {
     // Define a function that creates your section.
     // This function will return an object that has an "update" and "draw" function.
     function create (frame) {
-        var lineWidth = 25; // util.random(5, 50);
+        var lineWidth = util.random(10, 50);
+        var lineRange = util.random(frame.hauteur * 0.15, frame.hauteur * 0.5);
         var speed = util.random(0.5, 1.5) * 0.001;
-        var rightY = 0;
-        var leftY = 0;
+        var rightY = frame.hauteur / 2;
+        var leftY = frame.hauteur / 2;
 
         // use this function to change your section to respond to the previous drawing
         // you can also use this for animation
         // it must return an output x to be used as input for the next frame
         function update(input, time) {
             leftY = input;
-            rightY = leftY + util.mix(-frame.height * 0.5, frame.height * 0.5, (Math.cos(time * speed) + 1) / 2);
+            rightY = leftY + util.mix(-lineRange, lineRange, (Math.cos(time * speed) + 1) / 2);
 
             // return a value to be used as the `input` for your neighboring frame.
             return rightY;
