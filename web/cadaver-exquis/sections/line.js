@@ -16,7 +16,7 @@ var line = (function() {
             leftY = input;
             rightY = util.mix(frame.top, frame.bottom, (Math.cos(time * speed) + 1) / 2);
 
-            // return a value to be used as the frame.inputX for your neighboring frame.
+            // return a value to be used as the `input` for your neighboring frame.
             return rightY;
         }
 
@@ -39,6 +39,8 @@ var line = (function() {
             ctx.stroke();
         }
 
+        // This is the result of your object creation function.
+        // It should have "update" and "draw" members.
         return {
             name: "soft line",
             author: "David Wicks",
@@ -48,7 +50,8 @@ var line = (function() {
     }
 
     // This is the value of the top-level "line" variable.
-    // it should have one member named "create" that creates your object.
+    // it should have one member named "create" that refers to your
+    // object creation function.
     return {
         create: create
     };

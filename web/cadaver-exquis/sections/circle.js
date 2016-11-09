@@ -9,15 +9,13 @@ var circle = (function() {
         var targetY = 0;
         var leftY = 0;
 
-        // use this function to change your section to respond to the previous drawing
-        // you can also use this for animation
-        // it must return an output x to be used as input for the next frame
+        // use this function to change your drawing's variables to respond to the previous drawing
         function update(input, time) {
             targetY = input;
             var oldY = y;
             y = util.mix(y, targetY, 0.01);
 
-            // return a value to be used as the frame.inputX for your neighboring frame.
+            // return a value to be used as the `input` for your neighboring frame.
             return oldY;
         }
 
