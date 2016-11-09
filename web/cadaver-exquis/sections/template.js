@@ -3,7 +3,7 @@
 var template = (function() {
     // Cet function crée un objet javascript avec functions "update" et "draw".
     function create (frame) {
-        // Set up some parameters for your drawing.
+        // Mettez les parametres de votre animation.
         var x = util.random(frame.gauche, frame.droit);
         var y = util.random(frame.haut, frame.bas);
         var angle = 0;
@@ -12,13 +12,17 @@ var template = (function() {
 
         // Cet function va etre appelé dans tous les frame de l'animation.
         // Utilisez pour changer vos variables.
+        // Le parametre `input` peut être utilisé comme un relation de l'animation a son gauche.
         function update(input, temps, dt) {
             angle = temps;
+
+            // Le `return value` est utilisé comme `input` pour l'animation a son droit.
             return input;
         }
 
         // Cet function va etre appelé dans tous les frame de l'animation.
         // Utilisez pour dessiner vos formes.
+        // Pour l'information de dessiner avec javascript, voir https://developer.mozilla.org/fr/docs/Tutoriel_canvas
         function draw(ctx) {
             // Effacer le dessin dernier.
             ctx.clearRect(frame.gauche, frame.haut, frame.largeur, frame.hauteur);
