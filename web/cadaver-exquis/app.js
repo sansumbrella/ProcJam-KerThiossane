@@ -188,7 +188,6 @@ var app = (function () {
         var frame = createFrame(width, height);
         var clipShape = new Path2D();
         clipShape.rect(0, 0, width, height);
-        console.log("Building", width, height, frame);
 
         for (var i = 0; i < count; i += 1) {
             var sketch = util.pick(app.builders).create(frame);

@@ -26,7 +26,6 @@ var line = (function() {
             // ctx.clearRect(frame.left, frame.top, frame.right, frame.bottom);
             ctx.beginPath();
             ctx.fillStyle = util.hsva(0.5, 1.0, 1.0, 0.01);
-            console.log(ctx.fillStyle);
             ctx.rect(0, 0, frame.width + 1, frame.height);
             ctx.fill();
 
