@@ -4,17 +4,18 @@ var image = (function() {
     // Define a function that creates your section.
     // This function will return an object that has an "update" and "draw" function.
     function create (frame) {
-        var img = new Image();
-        img.src = "images/butterfly.png";
+        // Set up some parameters for our drawing.
         var y = 0;
         var rotation = 0;
         var rotationSpeed = util.random(0.5, 1.5) * 0.001;
+        var img = new Image();
+        img.src = "images/butterfly.png";
 
         // use this function to change your drawing's variables to respond to the previous drawing
         function update(input, time) {
-            y = input;
+            y = util.mix(y, input, 0.1);
             rotation += rotationSpeed;
-            return input;
+            return y;
         }
 
         // use this function to draw your section to screen
