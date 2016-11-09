@@ -13,6 +13,10 @@ var util = (function () {
         return array[Math.floor(Math.random() * array.length)];
     }
 
+    function next(array, index) {
+        return array[(index + 1) % array.length];
+    }
+
     function clamp(value, low, high) {
         if (low > high) {
             var temp = low;
@@ -101,6 +105,7 @@ var util = (function () {
         mix: mix,
         random: random,
         pick: pick,
+        next: next,
         hsv_to_rgb: hsv_to_rgb,
         hsva: hsva,
         rgba: color,
@@ -176,9 +181,11 @@ var app = (function () {
         context.save();
         context.clearRect(index * columnWidth, 0, columnWidth, canvas.height);
         context.restore();
-        var offset = app.scenes[index].offset;
-        app.scenes[index].destroy();
-        app.scenes[index] = buildScene(util.pick(app.builders), offset);
+        var oldScene = app.scenes[index];
+        var offset = oldScene.offset;
+        var sceneKey = app.builders.indexOf(oldScene.builder);
+        oldScene.destroy();
+        app.scenes[index] = buildScene(util.next(app.builders, sceneKey), offset);
     });
 
     function loadSections() {
@@ -222,7 +229,7 @@ var app = (function () {
             console.error("No sections were properly set up.");
         }
         else {
-            console.log("Loaded sections.");
+            console.log("Loaded all sections.");
         }
 
         buildScenes(settings.columns, columnWidth);
@@ -260,7 +267,8 @@ var app = (function () {
         return {
             sketch: sketch,
             offset: offset,
-            destroy: label.destroy
+            destroy: label.destroy,
+            builder: builder
         }
     }
 
