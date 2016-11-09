@@ -200,7 +200,7 @@ var app = (function () {
             console.log("Loaded sections.");
         }
 
-        buildScenes(context, 5);
+        buildScenes(context, 7);
         app.ready = true;
         update();
     }
@@ -225,7 +225,10 @@ var app = (function () {
 
     function updateScenes(time) {
         var input = mouseY;
-        for (var scene of app.scenes) {
+        var offset = Math.floor(app.scenes.length / 2);
+        for (var i = 0; i < app.scenes.length; i += 1) {
+            var index = (i + offset) % app.scenes.length;
+            var scene = app.scenes[index];
             var output = scene.sketch.update(input, time);
             input = output || input; // if no valid output, reuse input
             input = util.clamp(input, 0, canvas.height);
