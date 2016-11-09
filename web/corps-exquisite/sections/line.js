@@ -51,10 +51,9 @@ var line = (function() {
     // use this function to draw your section to screen
     // you can draw in the area [[0, 0], [width, height]]
     function draw(ctx, scene) {
-        // clear out background with our color
-        clear(ctx, scene, color(0));
+        ctx.clearRect(scene.left, scene.top, scene.right, scene.bottom);
         ctx.lineWidth = lineWidth;
-        ctx.strokeStyle = color(255);
+        ctx.strokeStyle = color(127);
 
         ctx.moveTo(scene.inputX, scene.top);
         ctx.lineTo(bottomX, scene.bottom);
