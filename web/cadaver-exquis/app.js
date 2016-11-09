@@ -120,7 +120,14 @@ function createFrame(width, height) {
         get top () { return 0; },
         get bottom () { return height; },
         get left () { return 0; },
-        get right () { return width; }
+        get right () { return width; },
+        // a Français
+        get gauche () { return this.left; },
+        get droit () { return this.right; },
+        get haut () { return this.top; },
+        get bas () { return this.bottom; },
+        get largeur () { return this.width; },
+        get hauteur () { return this.height; },
     };
 
     Object.freeze(frame);
@@ -159,7 +166,7 @@ var app = (function () {
     function loadSections() {
         var queue = [];
 
-        for (var section of sections) {
+        for (var section of appData.sections) {
             queue.push(section);
             var code = document.createElement("script");
             code.src = "sections/" + section + ".js";
@@ -200,7 +207,7 @@ var app = (function () {
             console.log("Loaded sections.");
         }
 
-        buildScenes(context, 7);
+        buildScenes(context, appData.columns);
         app.ready = true;
         update();
     }

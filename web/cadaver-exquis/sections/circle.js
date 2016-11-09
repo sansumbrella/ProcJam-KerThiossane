@@ -22,9 +22,9 @@ var circle = (function() {
         // use this function to draw your section to screen
         // you can draw in the area [[0, 0], [width, height]]
         function draw(ctx) {
-            ctx.clearRect(frame.left, frame.top, frame.width, frame.height);
+            ctx.clearRect(frame.gauche, frame.haut, frame.largeur, frame.hauteur);
             ctx.beginPath();
-            ctx.arc(util.mix(frame.left, frame.right, 0.5), y, radius, 0, Math.PI * 2);
+            ctx.arc(util.mix(frame.gauche, frame.droit, 0.5), y, radius, 0, Math.PI * 2);
             ctx.fill();
         }
 
