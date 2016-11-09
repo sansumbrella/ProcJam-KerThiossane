@@ -4,6 +4,7 @@ body {
 }
 
 canvas {
+	padding: 0;
     margin: 0 auto;
     display: block;
     background: #FFF;
@@ -11,4 +12,5 @@ canvas {
 
 h1 {
     font-family: sans-serif;
+    padding-left: 2%;
 }

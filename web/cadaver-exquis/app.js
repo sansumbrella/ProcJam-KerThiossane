@@ -9,6 +9,10 @@ var util = (function () {
         return mix(low, high, Math.random());
     }
 
+    function pick(array) {
+        return array[Math.floor(Math.random() * array.length)];
+    }
+
     // derived from c++ library glm.
     // input in range 0-1 for each field.
     function hsv_to_rgb(h, s, v) {
@@ -75,25 +79,6 @@ var util = (function () {
         return rgbColor;
     }
 
-    function createFrame(width, height, input, time) {
-        var frame = {
-            width: width,
-            height: height,
-            get top () { return 0; },
-            get bottom () { return height; },
-            get left () { return 0; },
-            get right () { return width; },
-            input: input,
-            time: time
-        };
-
-        return frame;
-    }
-
-    function defaultFrame() {
-        return createFrame(640, 100, 320, 0);
-    }
-
     function color(r, g, b) {
         var r = r || 255,
             g = g || r,
@@ -104,21 +89,42 @@ var util = (function () {
     return {
         mix: mix,
         random: random,
+        pick: pick,
         hsv_to_rgb: hsv_to_rgb,
-        createFrame: createFrame,
-        defaultFrame: defaultFrame,
-        color: color
+        color: color,
     }
 }());
+
+/// Creates an immutable set of measurements.
+function createFrame(width, height) {
+    var frame = {
+        width: width,
+        height: height,
+        get top () { return 0; },
+        get bottom () { return height; },
+        get left () { return 0; },
+        get right () { return width; }
+    };
+
+    Object.freeze(frame);
+
+    return frame;
+}
+var canvas = document.getElementById("corps"),
+context = canvas.getContext("2d");
 
 // Initialize and run the application
 var app = (function () {
     var app = {
-        ready: false,
-        running: true,
-        builders: [],
-        scenes: []
-    };
+            ready: false,
+            running: true,
+            builders: [],
+            scenes: []
+        };
+
+    // size to fill on startup
+    canvas.width = Math.floor(window.innerWidth * 0.95);
+    canvas.height = Math.floor(window.innerHeight * 0.95) - canvas.offsetTop;
 
     function loadSections() {
         var queue = [];
@@ -137,11 +143,11 @@ var app = (function () {
                             app.builders.push(loadedObject);
                         }
                         else {
-                            console.error("The section '" + section + "' needs to have a 'create' function. See 'line.js' for a working example.");
+                            console.warn("The section '" + section + "' needs to have a 'create' function. See 'line.js' for a working example.");
                         }
                     }
                     else {
-                        console.error("The section file '" + section + ".js' should create a variable named '" + section + "'. See 'line.js' for a working example.");
+                        console.warn("The section file '" + section + ".js' should create a variable named '" + section + "'. See 'line.js' for a working example.");
                     }
 
                     var index = queue.indexOf(section);
@@ -157,36 +163,70 @@ var app = (function () {
     }
 
     function allLoaded() {
-        console.log("Loaded sections.");
-        buildScenes(5);
-        console.log(app.builders);
+        if (app.builders.length === 0) {
+            console.error("No sections were properly set up.");
+        }
+        else {
+            console.log("Loaded sections.");
+        }
+
+        buildScenes(context, 5);
         app.ready = true;
+        update();
     }
 
-    function createScene(section) {
-        return {
-            section: section()
-        }
-    }
+    function buildScenes(context, count) {
+        var width = context.canvas.width / count;
+        var height = context.canvas.height;
+        var frame = createFrame(width, height);
+        var clipShape = new Path2D();
+        clipShape.rect(0, 0, width, height);
+        console.log("Building", width, height, frame);
 
-    function buildScenes(count) {
         for (var i = 0; i < count; i += 1) {
-
+            var sketch = util.pick(app.builders).create(frame);
+            app.scenes.push({
+                sketch: sketch,
+                offset: i * width,
+                frame: frame,
+                clip: clipShape
+            });
         }
     }
 
-    function updateSections(time) {
-
+    function updateScenes(time) {
+        var input = context.canvas.height / 2;
+        for (var scene of app.scenes) {
+            var output = scene.sketch.update(input, time);
+            input = output || input; // if no valid output, reuse input
+        }
     }
 
-    function drawSections(time) {
-
+    function drawScenes(time) {
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        context.moveTo(0, 0);
+        context.lineWidth = 10;
+        context.lineTo(canvas.width, canvas.height);
+        context.stroke();
+        /*
+        context.save();
+        context.fillStyle = "#FF0";
+        context.fill(app.scenes[0].clipShape);
+        context.restore();
+        for (var scene of app.scenes) {
+            context.save();
+            context.translate(scene.offset, 0);
+            context.clip(scene.clipShape);
+            scene.sketch.draw(context);
+            context.restore();
+        }
+        */
     }
 
     function update() {
         var time = new Date().getTime();
-        updateSections(time);
-        drawSections(context);
+        updateScenes(time);
+        drawScenes(context);
 
         if (app.running) {
             window.requestAnimationFrame(update);
