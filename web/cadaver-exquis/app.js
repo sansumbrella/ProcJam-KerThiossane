@@ -183,7 +183,7 @@ var app = (function () {
     }
 
     function buildScenes(context, count) {
-        var width = Math.round(context.canvas.width / count);
+        var width = Math.ceil(context.canvas.width / count);
         var height = context.canvas.height;
         var frame = createFrame(width, height);
         var clipShape = new Path2D();
