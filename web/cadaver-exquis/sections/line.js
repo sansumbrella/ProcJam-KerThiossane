@@ -25,7 +25,7 @@ var line = (function() {
         function draw(ctx) {
             // ctx.clearRect(frame.left, frame.top, frame.right, frame.bottom);
             ctx.beginPath();
-            ctx.rect(50, 200, 100, 100);
+            ctx.rect(150, 200, 4000, 100);
             ctx.fill();
 
             ctx.lineWidth = lineWidth;
