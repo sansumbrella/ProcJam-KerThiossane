@@ -108,7 +108,7 @@ var util = (function () {
         hsv_to_rgb: hsv_to_rgb,
         hsva: hsva,
         color: color,
-        clamp: clamp
+        clamp: clamp,
     }
 }());
 
@@ -127,8 +127,6 @@ function createFrame(width, height) {
 
     return frame;
 }
-var canvas = document.getElementById("corps"),
-context = canvas.getContext("2d");
 
 // Initialize and run the application
 var app = (function () {
@@ -137,11 +135,26 @@ var app = (function () {
             running: true,
             builders: [],
             scenes: []
-        };
-
+        },
+        canvas = document.getElementById("corps"),
+        context = canvas.getContext("2d"),
+        mouseX = 0,
+        mouseY = 0;
     // size to fill on startup
     canvas.width = Math.floor(window.innerWidth * 0.95);
     canvas.height = Math.floor(window.innerHeight * 0.95) - canvas.offsetTop;
+
+    Object.defineProperty(util, "mouseX", {
+            get: function () { return mouseX; }
+        } );
+    Object.defineProperty(util, "mouseY", {
+            get: function () { return mousey; }
+        } );
+
+    canvas.addEventListener("mousemove", function (event) {
+        mouseX = util.clamp(event.clientX, 0, canvas.width);
+        mouseY = util.clamp(event.clientY - canvas.offsetTop + window.scrollY, 0, canvas.height);
+    });
 
     function loadSections() {
         var queue = [];
@@ -211,7 +224,7 @@ var app = (function () {
     }
 
     function updateScenes(time) {
-        var input = context.canvas.height / 2;
+        var input = mouseY;
         for (var scene of app.scenes) {
             var output = scene.sketch.update(input, time);
             input = output || input; // if no valid output, reuse input
