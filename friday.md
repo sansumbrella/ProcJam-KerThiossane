@@ -61,7 +61,8 @@ Draw on your own.
 
 Français:
 BRANCHE
-Initialisation: Dessinez seule.
+Initialisation:
+Dessinez seule.
 1) Dessinez une ligne
 2) Dès la fin de la ligne, dessinez deux plus petites lignes.
 3) Repetez étape 2 avec chaque ligne que vous dessinez.
@@ -82,7 +83,8 @@ Stop when the circle is perfect.
 
 Français:
 CERCLE PARFAIT
-Initialisation: Jouer en groupe de quatre personnes
+Initialisation:
+Jouer en groupe de quatre personnes
 Chaqu'un prend un stylo d'un couleur different.
 Prendre des tours à dessiner, chaque tour durant trente secondes. (je vais garder le temps.)
 
@@ -106,7 +108,8 @@ Play with 4 people.
 
 Français:
 CADAVRE EXQUIS
-Initialisation: Jouer en groupe de quatre personnes
+Initialisation:
+Jouer en groupe de quatre personnes
 
 1) Pliez une feuille de papier en quatre sections verticales. Depliez.
 2) Dessinez dans la section haute, en avant soin de faire votre dessin toucher les bords de son section en haut et en bas.
