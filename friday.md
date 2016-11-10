@@ -38,11 +38,7 @@ Let’s make some procedural drawings. Conditional design is essentially procedu
 
 The term "Conditional Design" and a number of exercises were created in 2008 by Luna Maurer, Edo Paulus, Jonathan Puckey, and Roel Wouters. They wrote a manifesto describing the way they wanted to work in response to how much of network culture is dynamic and data-driven. Out of those ideas, they have made design objects and led workshops similar to what we are doing here.
 
-Sa manifesto a ete ecrit en Anglais, donc j'ai traduit un peu pour aujourd'hui. Vous pouvez voir le manifesto complete a [son website](http://conditionaldesign.org/manifesto).
-From their manifesto:
-> Our work focuses on processes rather than products:
-> things that adapt to their environment,
-> emphasize change and show difference.
+Vous pouvez voir le manifesto complete a [son website](http://conditionaldesign.org/manifesto).
 
 In addition to the manifesto, there is also a [Conditional Design Workbook](https://workbook.conditionaldesign.org/) which details many exercises with examples of their completion.
 
@@ -126,11 +122,18 @@ I hope that was fun for everyone. Now, let's see how we can make the computer ca
 
 Download sample code from [github](https://github.com/sansumbrella/ProcJam-KerThiossane). Click on the green "clone or download" box and select "Download ZIP." If you are familiar with git, feel free to fork or clone the repository.
 
+Set up developer console in Chrome. Drag the downloaded files into the "sources" drawer.
+
 ### Conditional design examples in Javascript (5 minutes)
 web/conditional/
 
 ### Overview of Javascript (45 minutes)
 web/overview/
+
+Open the overview file in Chrome.
+Open the javascript console.
+Let's read through this file together and try out the concepts as we go. You can write code in your javascript console.
+Play around a bit on your own machines.
 
 ### Teaser of Exquisite Corpse (5 minutes)
 Tomorrow, we will build our own procedural drawings that can fit into the cadavre exquis!
