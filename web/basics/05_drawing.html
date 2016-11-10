@@ -1,0 +1,35 @@
+<html>
+<head>
+    <meta charset="utf-8"></meta>
+    <title>Kër Thiossane Sample Code</title>
+</head>
+<body>
+    <h1>Javascript Drawing</h1>
+    <p>Cet exemple utilise le "developer console." Pour en savoir plus, voir <a href="https://developers.google.com/web/tools/chrome-devtools/console/">ici pour Chrome (Anglais)</a> ou <a href="https://developer.mozilla.org/fr/docs/Outils/Console_Web">ici pour Firefox (Francais)</a>.</p>
+    <p><a href="https://developer.mozilla.org/fr/docs/Tutoriel_canvas">Tutoriel Canvas</a></p>
+    <!-- Ici, notre element canvas, avec un "id" a'appelé "dessin"-->
+    <canvas id="dessin" width=640 height=480></canvas>
+</body>
+<script type="text/javascript">
+    // Référence au element canvas dans html.
+    var canvas = document.getElementById("dessin");
+    // Un objet javascript pour dessiner dans notre element canvas.
+    var ctx = canvas.getContext("2d");
+
+    // Crée une forme pour dessiner.
+    var forme = new Path2D();
+    var x = canvas.width / 2;
+    var y = canvas.height / 2;
+    var radius = 100;
+    forme.arc(x, y, radius, 0, Math.PI * 1.5);
+    forme.lineTo(x, y);
+
+    // Avec notre context, nous pouvons dessiner une forme avec "stroke" et "fill".
+    ctx.lineWidth = 10;
+    ctx.strokeStyle = "#F90";
+    ctx.stroke(forme);
+
+    ctx.fillStyle = "#333";
+    ctx.fill(forme);
+</script>
+</html>
