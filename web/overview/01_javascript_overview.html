@@ -1,0 +1,216 @@
+<html>
+<head>
+    <meta charset="utf-8"></meta>
+    <title>Kër Thiossane Sample Code</title>
+</head>
+<body>
+    <h1>Javascript Values and Variables</h1>
+    <p>Cet exemple utilise le "developer console." Pour en savoir plus, voir <a href="https://developers.google.com/web/tools/chrome-devtools/console/">ici pour Chrome (Anglais)</a> ou <a href="https://developer.mozilla.org/fr/docs/Outils/Console_Web">ici pour Firefox (Francais)</a>.</p>
+</body>
+<script type="text/javascript">
+    ///////////////////////////////
+    // Data Values and Variables //
+    ///////////////////////////////
+
+    // Javascript, like most programming languages, lets you work with data.
+    // Data can take many forms, but there are a few fundamental types of data
+    // that form the underlying representation of most things in our programs.
+    // These types are numbers, text, and booleans.
+
+    // Text data is represented by the "string" type.
+    // Text data can be written into your program by surrounding normal text with quotation marks:
+    "Bonjour";
+
+    // Numeric data is represented by the "number" type.
+    // Numbers can be written directly into your program.
+    1234;
+    // Numbers use the US convention for writing, so a decimal separates the ones from the tenths place.
+    100.05;
+
+    // Boolean data is something that can be either "true" or "false."
+    // It is represented by the "boolean" type.
+    true;
+    false;
+    // Booleans can be flipped between true and false by using the "not operator" "!".
+    // Read the below as "not true" and "not false".
+    !true;  // => false
+    !false; // => true
+
+    // When typed as above, our data is represented by the computer as "values."
+    // This just means the number 1234 has a value of 1234 and won't ever be anything else.
+    // Because they never change, values are easy to think about, and lots of programmers
+    // try to work with them exclusively.
+
+    // It can get pretty overwhelming to always type in your data as the exact values
+    // everywhere you need them. Variables are a solution to that challenge:
+    // they let us give names to the data in our program.
+
+    // In javascript, we can store any type of data in a variable.
+    // The variable is now a name that refers to a particular value.
+    var salutation = "Bonjour";
+    var five = 5;
+
+    // Unlike values, variables can change.
+    // This makes them useful, but can also be confusing.
+    // For example, below, our variable "five" now refers the the value 22.
+    five = 22;
+
+    // In modern javascript, we can use `const` instead of `var` to prevent
+    // confusing situations like the one above. When written with `const`,
+    // no one will be allowed to change what value our variable refers to.
+    const six = 6;
+
+    // You can do things with variables and values, like add them together
+    // to make new values.
+    var sentence = salutation + ", mes amis";
+
+    // Or do a sequence of steps to calculate a value halfway between two numbers.
+    var difference = six - five;
+    var halfway = five + difference * 0.5;
+
+    ///////////////
+    // Functions //
+    ///////////////
+
+    // Functions in Javascript let us do things with our data.
+    // They can take data as parameters and return data as an output.
+    // They can also modify the webpage they are running in, such as
+    // by drawing to screen or playing sounds.
+
+    // console.log() is a built-in function that prints data to the console.
+    // To see the console output, you will need to open the javascript console (press `ESC` inside developer tools)
+    // We can pass it data values directly
+    console.log("Bonjour");
+    // Or we can pass it variables, which it will use to get at the value to print
+    console.log(sentence);
+
+    // There are many math functions in javascript, all of which take numeric data as parameters
+    // and return numeric data as an output.
+
+    // Math.cos calculates the cosine of an angle.
+    var cosine = Math.cos(3.1415);
+    console.log(cosine);
+
+    // In addition to using the built-in functions of javascript, we can write our own.
+    // This lets us combine a set of operations for easy reuse.
+
+    // By creating a mix function, we can calculate intermediate values between numbers
+    // without needing to rewrite the math every time. This can help us avoid mistakes
+    // from typos and also helps clarify why we are doing math.
+
+    // mix blends between two numbers.
+    // This can be useful for animation.
+    function mix(a, b, t) {
+        return a + (b - a) * t;
+    }
+
+    // We call our functions just like the built-in functions:
+    // by appending parentheses '()' after the function's name and
+    // placing any parameters to the function inside the parentheses.
+    // When our function is called, the parameters passed in will have
+    // the names we used when we defined the function.
+    halfway = mix(five, six, 0.5);
+    console.log(halfway);
+
+    /////////////
+    // Objects //
+    /////////////
+
+    // Objects are groups of variables.
+    // The variables are called properties of the object.
+    // Let’s look at how we create objects and give them properties.
+
+    // Create an object with no properties.
+    var obj = {};
+
+    // An Object’s properties can be of any type, just like other variables.
+    // Let’s add some to our empty object.
+    obj.x = 10;
+    obj.y = 20.5;
+    obj.name = "First Object";
+
+    // Now we will create an object with some initial properties.
+    var friendObj = {
+        x: 5,
+        y: 5,
+        name: "Friendly Object"
+    };
+
+    // Properties really can be of any type, including other objects.
+    obj.friend = friendObj;
+
+    console.log(obj);
+
+    ///////////////////////////////
+    // Conditions and repetition //
+    ///////////////////////////////
+
+    // We can use conditional statements like "if" to run code based on a boolean value.
+    // If the statement is true, the code inside the braces will run, otherwise, the program
+    // will move on to the next part of the conditional statement or your program.
+    if (five > 5) {
+        console.log("`five` est plus grand que 5");
+    }
+    else if (five === 5) {
+        console.log("`five` est la meme que 5");
+    }
+    else if (five < 5) {
+        console.log("`five` est plus petit que 5");
+    }
+    else {
+        console.log("`five` n'est pas numerique.");
+    }
+
+    // We can also use conditions to run things many times using
+    // javascripts loop constructs: "while", and "for"
+
+    // While will run the code inside its braces repeatedly as long
+    // as its condition is true.
+    var i = 0;
+    while (i < 5) {
+        console.log("Counting up in a while-loop");
+        i += 1;
+    }
+
+    // For-loops are very similar to while-loops,
+    // but they wrap up the creation of the counter variable,
+    // its comparison check, and its change.
+    for (var i = 0; i < 5; i += 1) {
+        console.log("Counting up in a for-loop.");
+    }
+
+    // Loops are handy for doing things repeatedly, but they're also very useful
+    // when dealing with data that is stored in an array.
+    // An array is a special type of object in javascript whose property names are
+    // all numbers.
+
+    // An array starts out like an object, but it uses square brackets.
+    var arr = [];
+    // We can push things to the back of the array:
+    arr.push("Hi");
+    arr.push("friend");
+    arr.push("Goodbye.");
+    // Since the properties are numbers, we need to access them a little differently
+    // than we did with our object (arr.0 just won't work):
+    arr[0] = "Bonjour";
+    arr[2] = "Au revoir.";
+
+    // If we know what to put in our array when we create it, we can do that, too
+    var arrTwo = ["a", "b", "c", "d"];
+
+    // We can use a for-loop to do something with everything in our array:
+    for (var i = 0; i < arr.length; i += 1) {
+        console.log("Reading", arr[i]);
+    }
+
+    // We can also use other styles of for-loops in javascript, if you like.
+    // They can be confusing to keep track of, but they work similarly to our for-loop with a counter.
+    for (var index in arr) {
+        console.log(index, ":", arr[index]);
+    }
+
+    for (var thing of arr) {
+        console.log(thing);
+    }
+</script>
+</html>
