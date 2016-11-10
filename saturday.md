@@ -1,4 +1,4 @@
-# Saturday Schedule
+# Saturday Schedule (4 hours)
 
 ## Welcome back.
 Hello. Today we will take time to develop our own procedural content generators to fit into the exquisite corpse.
