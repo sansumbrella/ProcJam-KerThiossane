@@ -124,9 +124,13 @@ Conditional Design in Javascript (1 hour)
 
 I hope that was fun for everyone. Now, let's see how we can make the computer can follow similar rules to create images.
 
+Download sample code from [github](https://github.com/sansumbrella/ProcJam-KerThiossane). Click on the green "clone or download" box and select "Download ZIP." If you are familiar with git, feel free to fork or clone the repository.
+
 ### Conditional design examples in Javascript
 web/conditional/
+
 ### Overview of Javascript
 web/overview/
+
 ### Teaser of Exquisite Corpse
 web/cadaver-exquis/
