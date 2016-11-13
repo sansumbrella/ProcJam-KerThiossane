@@ -167,6 +167,16 @@ var app = (function () {
     }
 
     fillScreen();
+    window.addEventListener("resize", function (event) {
+        clearTimeout(app.resizeTimeout);
+        app.resizeTimeout = setTimeout(debounce, 100);
+        function debounce() {
+            fillScreen();
+            for (var i = 0; i < app.scenes.length; i += 1) {
+                rebuildScene(i);
+            }
+        }
+    });
 
     util.currentOffset = 0;
     Object.defineProperty(util, "mouseX", {
@@ -193,10 +203,17 @@ var app = (function () {
         context.restore();
 
         var oldScene = app.scenes[index];
-        var offset = oldScene.offset;
+        var offset = index * columnWidth;
         var sceneKey = app.builders.indexOf(oldScene.builder);
         oldScene.destroy();
         app.scenes[index] = buildScene(util.next(app.builders, sceneKey), offset);
+    }
+
+    function rebuildScene(index) {
+        var oldScene = app.scenes[index];
+        var offset = index * columnWidth;
+        oldScene.destroy();
+        app.scenes[index] = buildScene(oldScene.builder, offset);
     }
 
     canvas.addEventListener("mouseup", function (event) {
