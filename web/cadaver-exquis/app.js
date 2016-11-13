@@ -143,7 +143,7 @@ var app = (function () {
             running: true,
             builders: [],
             scenes: [],
-            seconds_between_flips: 30,
+            seconds_between_flips: 20,
         },
         canvas = document.getElementById("corps"),
         context = canvas.getContext("2d"),
