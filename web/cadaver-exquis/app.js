@@ -142,12 +142,14 @@ var app = (function () {
             ready: false,
             running: true,
             builders: [],
-            scenes: []
+            scenes: [],
+            seconds_between_flips: 30,
         },
         canvas = document.getElementById("corps"),
         context = canvas.getContext("2d"),
         mouseX = 0,
         mouseY = 0,
+        time_since_flip = 0,
         temps_base = new Date().getTime() / 1000,
         temps_dernier = temps_base;
     // size to fill on startup
@@ -176,16 +178,22 @@ var app = (function () {
         return Math.floor(t * app.scenes.length);
     }
 
-    canvas.addEventListener("mouseup", function (event) {
-        var index = sceneIndexFromPosition(event.clientX - canvas.offsetLeft);
+    function advanceScene(index) {
+        time_since_flip = 0;
         context.save();
         context.clearRect(index * columnWidth, 0, columnWidth, canvas.height);
         context.restore();
+
         var oldScene = app.scenes[index];
         var offset = oldScene.offset;
         var sceneKey = app.builders.indexOf(oldScene.builder);
         oldScene.destroy();
         app.scenes[index] = buildScene(util.next(app.builders, sceneKey), offset);
+    }
+
+    canvas.addEventListener("mouseup", function (event) {
+        var index = sceneIndexFromPosition(event.clientX - canvas.offsetLeft);
+        advanceScene(index);
     });
 
     function loadSections() {
@@ -319,6 +327,10 @@ var app = (function () {
         var temps = new Date().getTime() / 1000;
         var dt = temps - temps_dernier;
         temps_dernier = temps;
+        time_since_flip += dt;
+        if (time_since_flip > app.seconds_between_flips) {
+            advanceScene(Math.floor(Math.random() * app.scenes.length));
+        }
         updateScenes(temps - temps_base, dt);
         drawScenes(context);
 
