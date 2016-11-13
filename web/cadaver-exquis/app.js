@@ -275,7 +275,7 @@ var app = (function () {
         var title = document.createElement("h2");
         var author = document.createElement("h3");
         title.textContent = sketch.title;
-        author.textContent = " by " + sketch.author;
+        author.textContent = sketch.author;
         label.classList.add("caption");
         label.style.left = offset + "px";
         label.style.width = (columnWidth - 10) + "px";
