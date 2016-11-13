@@ -151,14 +151,22 @@ var app = (function () {
         mouseY = 0,
         time_since_flip = 0,
         temps_base = new Date().getTime() / 1000,
-        temps_dernier = temps_base;
-    // size to fill on startup
-    canvas.width = Math.floor(window.innerWidth);
-    canvas.height = Math.floor(window.innerHeight * 0.9) - canvas.offsetTop;
-    var columnWidth = Math.ceil(context.canvas.width / settings.columns);
-    var frame = createFrame(columnWidth, canvas.height);
-    var clipShape = new Path2D();
-    clipShape.rect(0, 0, columnWidth, canvas.height);
+        temps_dernier = temps_base,
+        columnWidth = canvas.width / settings.columns,
+        frame = createFrame(columnWidth, canvas.height),
+        clipShape;
+
+    function fillScreen() {
+        // size to fill on startup
+        canvas.width = Math.floor(window.innerWidth);
+        canvas.height = Math.floor(window.innerHeight * 0.9) - canvas.offsetTop;
+        columnWidth = Math.ceil(context.canvas.width / settings.columns);
+        frame = createFrame(columnWidth, canvas.height);
+        clipShape = new Path2D();
+        clipShape.rect(0, 0, columnWidth, canvas.height);
+    }
+
+    fillScreen();
 
     util.currentOffset = 0;
     Object.defineProperty(util, "mouseX", {
