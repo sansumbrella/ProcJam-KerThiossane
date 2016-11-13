@@ -9,7 +9,14 @@ Hello. Today we will take time to develop our own procedural content generators 
 1) Copy the template
 2) Rename the file
 3) Add your filename to "settings.js"
-4) Open in Chrome
+4) Open in Chrome/text editor of choice
+
+### Work together on example
+1) Draw a horizontal line
+2) Draw two lines
+3) Use function to draw a line
+4) Draw many lines
+5) Vary thickness based on distance to input
 
 ### Structure of project
 1) Creation function
